@@ -12,7 +12,7 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -27,26 +27,28 @@
 				<!-- Right menu -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
-						<?php if ($w_user): ?>
-						<!-- Membre -->
+					<?php if ($w_user): ?>
+					<!-- Membre -->
 						<li>
 							<a href="<?= $this->url('security_profil'); ?>">
 								<?= $w_user['firstname']." ".$w_user['lastname'] ?>
 							</a>
 						</li>
 						<li>
-							<a href="<?= $this->url('security_logout'); ?>">Déconnexion</a>
+							<a href="<?= $this->url('security_logout'); ?>">
+								Déconnexion
+							</a>
 						</li>
 
-						<?php else: ?>
-						<!-- Visiteur -->
+					<?php else: ?>
+					<!-- Visiteur -->
 						<li class="<?= $w_current_route == "security_login" ? "active" : ""; ?>">
 							<a href="<?= $this->url('security_login'); ?>">Connexion</a>
 						</li>
 						<li class="<?= $w_current_route == "security_register" ? "active" : ""; ?>">
 							<a href="<?= $this->url('security_register'); ?>">Inscription</a>
 						</li>
-						<?php endif; ?>
+					<?php endif; ?>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
@@ -58,11 +60,15 @@
 			</header>
 
 			<section>
-				<?= $this->section('main_content') ?>
+				<div class="row">
+					<?= $this->section('main_content') ?>
+				</div>
 			</section>
 
 			<footer>
-				<?php var_dump($_SESSION) ?>
+				<div class="row">
+					<?php var_dump($_SESSION) ?>
+				</div>
 			</footer>
 		</div>
 

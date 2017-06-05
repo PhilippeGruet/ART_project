@@ -1,11 +1,11 @@
-<?php $this->layout('layout', ['title' => 'Accueil']) ?>
+<?php $this->layout('layout', ['title' => 'Domaines Techniques']) ?>
 
 <?php $this->start('main_content') ?>
 
 <!-- Affichage des domaines/categories -->
-<ul>
+<ul class="list-group">
 	<?php foreach ($categories as $category): ?>
-		<li>
+		<li class="list-group-item">
 			<a class="category" href="#"><?= $category['name'] ?></a>
 
 			<!-- Affichage des tests/normes -->
@@ -23,6 +23,7 @@
 					<p>Aucun test.</p>
 				<?php endif; ?>
 			</ul>
+			<span class="badge"><?= $elmDisplayed; ?></span>
 		</li>
 	<?php endforeach; ?>
 </ul>

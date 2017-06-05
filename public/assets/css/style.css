@@ -1,16 +1,12 @@
 html, body {
 	font-family: Consolas, monaco, monospace;
-	background-color: #272822;
-	color: #F8F8F2;
-}
-
-.container {
-	margin: 50px;
+	/*background-color: #272822;*/
+	/*color: #F8F8F2;*/
 }
 
 a {
 	text-decoration: none;
-	color: #A6E22E;
+	color: #00c2ff;
 }
 
 a:hover {
@@ -18,9 +14,22 @@ a:hover {
 }
 
 h1 {
-	color: #F92672;
+	color: #00c2ff;
 }
 
 h2 {
-	color: #66D9EF;
+	color: #00c2ff;
+}
+
+.tests-list {
+	display: none;
+}
+
+footer {
+	background-color: #222;
+}
+
+/* Formulaire d'ajout de question*/
+#newCategoryDiv, #newNormeDiv {
+	display: none;
 }
