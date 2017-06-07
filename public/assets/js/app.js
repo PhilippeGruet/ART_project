@@ -20,6 +20,7 @@ $(function () {
             $(this).parent().children().last().hide();
 
             $(this).addClass("display");
+
         } else {
             // Hide all tests and show badges
             $(".tests-list").hide();
@@ -27,7 +28,6 @@ $(function () {
 
             $(this).removeClass("display");
         }
-
     });
 
 
@@ -38,23 +38,23 @@ $(function () {
 
     // Display only if something is selected
     if ( $("select").val() ) {
-        console.log("Oui");
+        // console.log("Oui");
         // Default display of add category
         if ( ($("option:selected", this).parent()[0].label + " : " + $("select").val()) == "undefined : add") {
-            console.log("Show add category");
+            // console.log("Show add category");
             $("#newCategoryDiv").show();
         }
 
         // Default display of add norme
         if ( $("select").val().substr(0, 3) == "add") {
-            console.log("Show add norme");
+            // console.log("Show add norme");
             $("#newNormeDiv").show();
         }
     }
 
     // Action on select norme
     $("select").on("change", function() {
-        console.log( $("option:selected", this).parent()[0].label + " : " + $(this).val() );
+        // console.log( $("option:selected", this).parent()[0].label + " : " + $(this).val() );
         // Add new category
         if ( !( $("option:selected", this).parent()[0].label ) ) {
             $("#newCategoryDiv").fadeIn();

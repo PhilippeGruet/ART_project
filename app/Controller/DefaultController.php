@@ -14,7 +14,7 @@ class DefaultController extends Controller
 	 * Page d'accueil par défaut
 	 */
 	public function home() {
-		
+
 		if ($this->getUser()) {
 			// Récupération des catègories
 			$categories_manager = new CategoriesModel();
@@ -94,7 +94,7 @@ class DefaultController extends Controller
 				$errors["addCategory"] = "Vous devez remplir ces champs.";
 			}
 
-			if ( strlen($norme) > 3 && empty($newNorme) ) {
+			if ( strlen($norme) > 3 && empty($newNorme) && !is_numeric($norme) ) {
 				$errors["addNorme"] = "Vous devez remplir ce champ.";
 
 			}
@@ -119,12 +119,29 @@ class DefaultController extends Controller
 				$errors["answer_4"] = "Veulliez remplir les champs dans l'ordre.";
 			}
 
-			// $user_manager = new UserModel();
-			// Champs valide
+			var_dump($_POST);
 
 			// Enregistrement en bdd, s'il n'y a pas d'erreurs
 			if ( empty($errors) ) {
-				// insert
+				if ( !is_numeric($norme) ) {
+					
+				}
+				// Add category and norme/test
+				if ($norme === "add") {
+					$category_manager = new CategoriesModel();
+					$id_cat = $category_manager->insert([
+						'name' => $newCategory
+					]);
+					var_dump($id_cat);
+
+					$norme_manager = new TestsModel();
+
+				}
+
+				// Add norme / test
+
+
+				$question_manager = new QuestionsModel();
 				// $user_manager->insert([
 				// 	'lastname' => $lastname,
 				// 	'firstname' => $firstname,

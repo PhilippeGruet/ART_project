@@ -4,6 +4,8 @@ namespace Model;
 
 class QuestionsModel extends \W\Model\Model
 {
+    protected $primaryKey = 'id_question';
+
     public function findAllByTest($idTest, $orderBy = '', $orderDir = 'ASC', $limit = null, $offset = null)
 	{
 
