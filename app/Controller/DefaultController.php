@@ -96,7 +96,6 @@ class DefaultController extends Controller
 
 			if ( strlen($norme) > 3 && empty($newNorme) && !is_numeric($norme) ) {
 				$errors["addNorme"] = "Vous devez remplir ce champ.";
-
 			}
 
 			// Question
@@ -119,71 +118,77 @@ class DefaultController extends Controller
 				$errors["answer_4"] = "Veulliez remplir les champs dans l'ordre.";
 			}
 
-			var_dump($_POST);
-
 			// Enregistrement en bdd, s'il n'y a pas d'erreurs
 			if ( empty($errors) ) {
-				if ( !is_numeric($norme) ) {
-					
-				}
+
+				$normeToAddIn = is_numeric($norme) ? $norme : "newNorme" ;
+
 				// Add category and norme/test
-				if ($norme === "add") {
-					$category_manager = new CategoriesModel();
-					$id_cat = $category_manager->insert([
-						'name' => $newCategory
-					]);
-					var_dump($id_cat);
-
+				if ( substr($norme, 0, 3) === "add" ) {
+					$id_cat = "";
+					// Create new category
+					if ( strlen($norme) == 3 ) {
+						$category_manager = new CategoriesModel();
+						$id_cat = $category_manager->insert([
+							'name' => $newCategory
+						]);
+						$id_cat = $id_cat["id_category"];
+					} else {
+						$id_cat = substr($norme, 4);
+					}
+					// Create new norme/test
 					$norme_manager = new TestsModel();
-
+					$id_norme = $norme_manager->insert([
+							'name' => $newNorme,
+							'id_category' => $id_cat
+					]);
+					$normeToAddIn = $id_norme["id_test"];
 				}
 
-				// Add norme / test
-
-
+				// Add question
 				$question_manager = new QuestionsModel();
-				// $user_manager->insert([
-				// 	'lastname' => $lastname,
-				// 	'firstname' => $firstname,
-				// 	'email'    => $email,
-				// 	'mdp' => $auth_manager->hashPassword( $password ),
-				// 	'role'     => 'user',
-				// 	]);
-					$message = ['success'=>"La question a bien été ajouté dans la norme : ".$norme."."];
-				} else {
-					$message = $errors;
-				}
-				// Redirection
-
+				$question_manager->insert([
+						"question"		=> $question,
+						"answer_1" 		=> $answer_1,
+						"answer_2" 		=> $answer_2,
+						"answer_3" 		=> $answer_3,
+						"answer_4" 		=> $answer_4,
+						"good_answer" 	=> $rightAnswer,
+						"id_test" 		=> $normeToAddIn,
+						"help" 			=> $help,
+						"more_info" 	=> $more_info,
+				]);
+				$message = ['success'=>"La question a bien été ajouté."];
+			} else {
+				$message = $errors;
 			}
-
-			// Récupération des catègories
-			$categories_manager = new CategoriesModel();
-			$categories = $categories_manager->findAll();
-
-			// Récupération des normes
-			$tests_manager = new TestsModel();
-			$tests = $tests_manager->findAll();
-
-			// Affichage de la page
-			$this->show('default/addQuestion', [
-				'categories'  => $categories,
-				'tests' 	  => $tests,
-				'messages'    => $message,
-				// Retour des values
-				'norme'  	  => $norme,
-				"newCategory" => $newCategory,
-				"newNorme" 	  => $newNorme,
-				"question" 	  => $question,
-				"answer_1"    => $answer_1,
-				"answer_2" 	  => $answer_2,
-				"answer_3" 	  => $answer_3,
-				"answer_4" 	  => $answer_4,
-				"rightAnswer" => $rightAnswer,
-				"help" 		  => $help,
-				"more_info"   => $more_info,
-			]);
 		}
 
+		// Récupération des catègories
+		$categories_manager = new CategoriesModel();
+		$categories = $categories_manager->findAll();
 
+		// Récupération des normes
+		$tests_manager = new TestsModel();
+		$tests = $tests_manager->findAll();
+
+		// Affichage de la page
+		$this->show('default/addQuestion', [
+			'categories'  => $categories,
+			'tests' 	  => $tests,
+			'messages'    => $message,
+			// Retour des values
+			'norme'  	  => $norme,
+			"newCategory" => $newCategory,
+			"newNorme" 	  => $newNorme,
+			"question" 	  => $question,
+			"answer_1"    => $answer_1,
+			"answer_2" 	  => $answer_2,
+			"answer_3" 	  => $answer_3,
+			"answer_4" 	  => $answer_4,
+			"rightAnswer" => $rightAnswer,
+			"help" 		  => $help,
+			"more_info"   => $more_info,
+		]);
+	}
 }

@@ -104,8 +104,7 @@
     <small class="text-muted">(* champs obligatoire)</small>
 </form>
 
-<?php if ( isset($messages["success"]) ) echo "<br><span>".$messages["success"]."</span>"; ?>
-
+<?php if ( isset($messages["success"]) ) echo "<br><span class=\"text-success\">".$messages["success"]."</span>"; ?>
 
 <?php // echo str_replace('%20', ' ', end( explode('/', $_SERVER['REQUEST_URI']) )); ?>
 <?php $this->stop('main_content') ?>
