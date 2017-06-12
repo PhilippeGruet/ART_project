@@ -6,6 +6,7 @@ use \W\Controller\Controller;
 use \Model\CategoriesModel;
 use \Model\TestsModel;
 use \Model\QuestionsModel;
+use \Model\User_progression_testModel;
 
 class DefaultController extends Controller
 {
@@ -42,7 +43,11 @@ class DefaultController extends Controller
 		$question_manager = new QuestionsModel();
 		$questions = $question_manager->findAllByTest($idTest);
 
+		$progression_manager = new User_progression_testModel();
+		$progression = $progression_manager->findByUserID($idTest, 1);
+		// var_dump($progression);
 		$this->show('default/test', [
+			'progression' => $progression,
 			'test' => $test,
 			'questions' => $questions,
 		]);

@@ -70,5 +70,12 @@ $(function () {
         }
     });
 
+    /*
+            test page
+    */
+    $("#start-test").on("click", function() {
+        $("#displayed-question").html( $(".first-question").html() );
+        $("#controler").removeClass("hidden");
+    });
 
 });
